@@ -17,58 +17,40 @@ public class Main {
         for (int i = 0; i < texts.length; i++) {
             texts[i] = generateText("abc", 3 + random.nextInt(3));
         }
+        //Поток для подсчёта по критерию одинаковости букв в слове
         new Thread(() -> {
             for (String text : texts) {
-                switch (text.length()) {
-                    case 3 -> {
-                        if(isAllTheSame(text))
-                            counter3.incrementAndGet();
-                    }
-                    case 4 -> {
-                        if (isAllTheSame(text))
-                            counter4.incrementAndGet();
-                    }
-                    case 5 -> {
-                        if (isAllTheSame(text))
-                            counter5.incrementAndGet();
+                if(isAllTheSame(text)) {
+                    switch (text.length()) {
+                        case 3 -> counter3.incrementAndGet();
+                        case 4 -> counter4.incrementAndGet();
+                        case 5 -> counter5.incrementAndGet();
                     }
                 }
             }
             latch.countDown();
         }).start();
+        //Поток для подсчёта по критерию палиндромности
         new Thread(() -> {
             for (String text : texts) {
-                switch (text.length()) {
-                    case 3 -> {
-                        if(isItPalindrome(text))
-                            counter3.incrementAndGet();
-                    }
-                    case 4 -> {
-                        if(isItPalindrome(text))
-                            counter4.incrementAndGet();
-                    }
-                    case 5 -> {
-                        if(isItPalindrome(text))
-                            counter5.incrementAndGet();
+                if(isItPalindrome(text)) {
+                    switch (text.length()) {
+                        case 3 -> counter3.incrementAndGet();
+                        case 4 -> counter4.incrementAndGet();
+                        case 5 -> counter5.incrementAndGet();
                     }
                 }
             }
             latch.countDown();
         }).start();
+        //Поток для подсчёта по критерию возрастания букв в слове
         new Thread(() -> {
             for (String text : texts) {
-                switch (text.length()) {
-                    case 3 -> {
-                        if(isLettersIncrease(text))
-                            counter3.incrementAndGet();
-                    }
-                    case 4 -> {
-                        if(isLettersIncrease(text))
-                            counter4.incrementAndGet();
-                    }
-                    case 5 -> {
-                        if(isLettersIncrease(text))
-                            counter5.incrementAndGet();
+                if(isLettersIncrease(text)) {
+                    switch (text.length()) {
+                        case 3 -> counter3.incrementAndGet();
+                        case 4 -> counter4.incrementAndGet();
+                        case 5 -> counter5.incrementAndGet();
                     }
                 }
             }
